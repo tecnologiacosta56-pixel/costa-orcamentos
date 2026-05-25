@@ -61,6 +61,42 @@ export default function App() {
     useState("");
 
   // =========================
+  // CAMPOS TÉCNICOS
+  // =========================
+  const [projectCategory, setProjectCategory] =
+    useState("");
+
+  const [projectObjective, setProjectObjective] =
+    useState("");
+
+  const [serviceScope, setServiceScope] =
+    useState("");
+
+  const [priorityLevel, setPriorityLevel] =
+    useState("");
+
+  const [proposalValidity, setProposalValidity] =
+    useState("");
+
+  const [technicalResponsible, setTechnicalResponsible] =
+    useState("");
+
+  // =========================
+  // NOVOS CAMPOS
+  // =========================
+  const [installationLocations, setInstallationLocations] =
+    useState("");
+
+  const [technicalNotes, setTechnicalNotes] =
+    useState("");
+
+  const [includedServices, setIncludedServices] =
+    useState("");
+
+  const [generalConditions, setGeneralConditions] =
+    useState("");
+
+  // =========================
   // RESET FORM
   // =========================
   const resetForm = () => {
@@ -74,6 +110,32 @@ export default function App() {
     setDescription("");
 
     setDiscount(0);
+
+    // =========================
+    // RESET CAMPOS TÉCNICOS
+    // =========================
+    setProjectCategory("");
+
+    setProjectObjective("");
+
+    setServiceScope("");
+
+    setPriorityLevel("");
+
+    setProposalValidity("");
+
+    setTechnicalResponsible("");
+
+    // =========================
+    // RESET NOVOS CAMPOS
+    // =========================
+    setInstallationLocations("");
+
+    setTechnicalNotes("");
+
+    setIncludedServices("");
+
+    setGeneralConditions("");
 
     setItems([
       {
@@ -132,6 +194,52 @@ export default function App() {
 
           setDescription(
             data.description || ""
+          );
+
+          // =========================
+          // LOAD CAMPOS TÉCNICOS
+          // =========================
+          setProjectCategory(
+            data.projectCategory || ""
+          );
+
+          setProjectObjective(
+            data.projectObjective || ""
+          );
+
+          setServiceScope(
+            data.serviceScope || ""
+          );
+
+          setPriorityLevel(
+            data.priorityLevel || ""
+          );
+
+          setProposalValidity(
+            data.proposalValidity || ""
+          );
+
+          setTechnicalResponsible(
+            data.technicalResponsible || ""
+          );
+
+          // =========================
+          // LOAD NOVOS CAMPOS
+          // =========================
+          setInstallationLocations(
+            data.installationLocations || ""
+          );
+
+          setTechnicalNotes(
+            data.technicalNotes || ""
+          );
+
+          setIncludedServices(
+            data.includedServices || ""
+          );
+
+          setGeneralConditions(
+            data.generalConditions || ""
           );
 
           setItems(
@@ -270,6 +378,36 @@ export default function App() {
 
               description={description}
               setDescription={setDescription}
+
+              projectCategory={projectCategory}
+              setProjectCategory={setProjectCategory}
+
+              projectObjective={projectObjective}
+              setProjectObjective={setProjectObjective}
+
+              serviceScope={serviceScope}
+              setServiceScope={setServiceScope}
+
+              priorityLevel={priorityLevel}
+              setPriorityLevel={setPriorityLevel}
+
+              proposalValidity={proposalValidity}
+              setProposalValidity={setProposalValidity}
+
+              technicalResponsible={technicalResponsible}
+              setTechnicalResponsible={setTechnicalResponsible}
+
+              installationLocations={installationLocations}
+              setInstallationLocations={setInstallationLocations}
+
+              technicalNotes={technicalNotes}
+              setTechnicalNotes={setTechnicalNotes}
+
+              includedServices={includedServices}
+              setIncludedServices={setIncludedServices}
+
+              generalConditions={generalConditions}
+              setGeneralConditions={setGeneralConditions}
             />
 
             {/* TABLE */}
@@ -296,6 +434,26 @@ export default function App() {
               address={address}
 
               description={description}
+
+              projectCategory={projectCategory}
+
+              projectObjective={projectObjective}
+
+              serviceScope={serviceScope}
+
+              priorityLevel={priorityLevel}
+
+              proposalValidity={proposalValidity}
+
+              technicalResponsible={technicalResponsible}
+
+              installationLocations={installationLocations}
+
+              technicalNotes={technicalNotes}
+
+              includedServices={includedServices}
+
+              generalConditions={generalConditions}
 
               items={items}
 

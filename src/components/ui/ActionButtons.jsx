@@ -20,6 +20,26 @@ export default function ActionButtons({
 
   description,
 
+  projectCategory,
+
+  projectObjective,
+
+  serviceScope,
+
+  installationLocations,
+
+  technicalNotes,
+
+  includedServices,
+
+  generalConditions,
+
+  priorityLevel,
+
+  proposalValidity,
+
+  technicalResponsible,
+
   items,
 
   discount,
@@ -97,6 +117,9 @@ export default function ActionButtons({
   // =========================
   const budgetData = {
 
+    // =========================
+    // CLIENTE
+    // =========================
     clientName:
       clientName || "",
 
@@ -106,9 +129,48 @@ export default function ActionButtons({
     address:
       address || "",
 
+    // =========================
+    // DESCRIÇÃO
+    // =========================
     description:
       description || "",
 
+    // =========================
+    // CAMPOS TÉCNICOS
+    // =========================
+    projectCategory:
+      projectCategory || "",
+
+    projectObjective:
+      projectObjective || "",
+
+    serviceScope:
+      serviceScope || "",
+
+    installationLocations:
+      installationLocations || "",
+
+    technicalNotes:
+      technicalNotes || "",
+
+    includedServices:
+      includedServices || "",
+
+    generalConditions:
+      generalConditions || "",
+
+    priorityLevel:
+      priorityLevel || "",
+
+    proposalValidity:
+      proposalValidity || "",
+
+    technicalResponsible:
+      technicalResponsible || "",
+
+    // =========================
+    // ITENS
+    // =========================
     items:
       items || [],
 

@@ -109,7 +109,7 @@ export default function OrcamentoView() {
 
     <div className="min-h-screen bg-[#050816] text-white p-4 md:p-10">
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
 
         <div className="border border-cyan-500/20 bg-[#0B1120] rounded-3xl p-6 md:p-10 shadow-2xl">
 
@@ -131,7 +131,7 @@ export default function OrcamentoView() {
               </h1>
 
               <p className="text-zinc-400 mt-1">
-                Sistema Inteligente de Orçamentos
+                Plataforma Inteligente de Propostas Técnicas
               </p>
 
             </div>
@@ -142,7 +142,7 @@ export default function OrcamentoView() {
           <div className="mb-10">
 
             <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 mb-2">
-              Orçamento Profissional
+              Proposta Técnica Comercial
             </h2>
 
             <p className="text-zinc-400">
@@ -151,8 +151,8 @@ export default function OrcamentoView() {
 
           </div>
 
-          {/* CLIENTE */}
-          <div className="grid md:grid-cols-2 gap-8 mb-10">
+          {/* DADOS CLIENTE */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
 
             <div>
 
@@ -192,8 +192,248 @@ export default function OrcamentoView() {
 
           </div>
 
+          {/* INFORMAÇÕES TÉCNICAS */}
+          <div className="mb-12">
+
+            <h3 className="text-2xl font-bold text-cyan-400 mb-6">
+
+              Informações Técnicas
+
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-6">
+
+              {budget.projectCategory && (
+
+                <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-5">
+
+                  <p className="text-zinc-500 text-sm mb-2">
+                    Categoria
+                  </p>
+
+                  <h3 className="text-xl font-semibold">
+                    {budget.projectCategory}
+                  </h3>
+
+                </div>
+
+              )}
+
+              {budget.priorityLevel && (
+
+                <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-5">
+
+                  <p className="text-zinc-500 text-sm mb-2">
+                    Prioridade
+                  </p>
+
+                  <h3 className="text-xl font-semibold">
+                    {budget.priorityLevel}
+                  </h3>
+
+                </div>
+
+              )}
+
+              {budget.proposalValidity && (
+
+                <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-5">
+
+                  <p className="text-zinc-500 text-sm mb-2">
+                    Validade da Proposta
+                  </p>
+
+                  <h3 className="text-xl font-semibold">
+                    {budget.proposalValidity}
+                  </h3>
+
+                </div>
+
+              )}
+
+              {budget.technicalResponsible && (
+
+                <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-5">
+
+                  <p className="text-zinc-500 text-sm mb-2">
+                    Responsável Técnico
+                  </p>
+
+                  <h3 className="text-xl font-semibold">
+                    {budget.technicalResponsible}
+                  </h3>
+
+                </div>
+
+              )}
+
+            </div>
+
+          </div>
+
+          {/* OBJETIVO */}
+          {budget.projectObjective && (
+
+            <div className="mb-10">
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+
+                Objetivo do Projeto
+
+              </h3>
+
+              <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-6">
+
+                <p className="text-zinc-300 whitespace-pre-line leading-relaxed">
+                  {budget.projectObjective}
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
+
+          {/* ESCOPO */}
+          {budget.serviceScope && (
+
+            <div className="mb-10">
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+
+                Escopo Técnico
+
+              </h3>
+
+              <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-6">
+
+                <p className="text-zinc-300 whitespace-pre-line leading-relaxed">
+                  {budget.serviceScope}
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
+
+          {/* LOCAIS */}
+          {budget.installationLocations && (
+
+            <div className="mb-10">
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+
+                Locais da Instalação
+
+              </h3>
+
+              <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-6">
+
+                <p className="text-zinc-300 whitespace-pre-line leading-relaxed">
+                  {budget.installationLocations}
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
+
+          {/* SERVIÇOS INCLUSOS */}
+          {budget.includedServices && (
+
+            <div className="mb-10">
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+
+                Serviços Inclusos
+
+              </h3>
+
+              <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-6">
+
+                <p className="text-zinc-300 whitespace-pre-line leading-relaxed">
+                  {budget.includedServices}
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
+
+          {/* OBSERVAÇÕES */}
+          {budget.technicalNotes && (
+
+            <div className="mb-10">
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+
+                Observações Técnicas
+
+              </h3>
+
+              <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-6">
+
+                <p className="text-zinc-300 whitespace-pre-line leading-relaxed">
+                  {budget.technicalNotes}
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
+
+          {/* CONDIÇÕES */}
+          {budget.generalConditions && (
+
+            <div className="mb-10">
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+
+                Condições Gerais
+
+              </h3>
+
+              <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-6">
+
+                <p className="text-zinc-300 whitespace-pre-line leading-relaxed">
+                  {budget.generalConditions}
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
+
+          {/* DESCRIÇÃO */}
+          {budget.description && (
+
+            <div className="mb-10">
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+
+                Descrição Geral
+
+              </h3>
+
+              <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-6">
+
+                <p className="text-zinc-300 whitespace-pre-line leading-relaxed">
+                  {budget.description}
+                </p>
+
+              </div>
+
+            </div>
+
+          )}
+
           {/* TABELA */}
-          <div className="overflow-x-auto rounded-2xl border border-cyan-500/10">
+          <div className="overflow-x-auto rounded-2xl border border-cyan-500/10 mb-10">
 
             <table className="w-full">
 
