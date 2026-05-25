@@ -1,24 +1,89 @@
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+
 import { db } from "./firebaseConfig";
 
-export async function saveBudget(budgetData) {
+// =========================
+// SAVE OR UPDATE
+// =========================
+export async function saveBudget(
+  budgetData,
+  budgetId = null
+) {
+
   try {
 
+    // =========================
+    // DEFAULT STATUS
+    // =========================
+    const formattedData = {
+
+      ...budgetData,
+
+      status:
+        budgetData.status ||
+        "Pendente",
+    };
+
+    // =========================
+    // UPDATE
+    // =========================
+    if (budgetId) {
+
+      const docRef =
+        doc(db, "orcamentos", budgetId);
+
+      await updateDoc(docRef, {
+
+        ...formattedData,
+
+        updatedAt:
+          new Date(),
+      });
+
+      console.log(
+        "Orçamento atualizado:",
+        budgetId
+      );
+
+      return budgetId;
+    }
+
+    // =========================
+    // CREATE
+    // =========================
     const docRef = await addDoc(
-      collection(db, "orcamentos"),
+
+      collection(
+        db,
+        "orcamentos"
+      ),
+
       {
-        ...budgetData,
-        createdAt: new Date(),
+
+        ...formattedData,
+
+        createdAt:
+          new Date(),
       }
     );
 
-    console.log("Orçamento salvo com ID:", docRef.id);
+    console.log(
+      "Orçamento salvo:",
+      docRef.id
+    );
 
     return docRef.id;
 
   } catch (error) {
 
-    console.error("Erro ao salvar orçamento:", error);
-
+    console.error(
+      "Erro ao salvar orçamento:",
+      error
+    );
   }
 }

@@ -24,19 +24,25 @@ ReactDOM.createRoot(
 
       <Routes>
 
-        {/* Painel Admin */}
+        {/* NOVO ORÇAMENTO */}
         <Route
           path="/"
           element={<App />}
         />
 
-        {/* Histórico */}
+        {/* EDITAR */}
+        <Route
+          path="/editar/:id"
+          element={<App />}
+        />
+
+        {/* HISTÓRICO */}
         <Route
           path="/historico"
           element={<HistoricoOrcamentos />}
         />
 
-        {/* Página Pública */}
+        {/* PÚBLICO */}
         <Route
           path="/orcamento/:id"
           element={<OrcamentoView />}
