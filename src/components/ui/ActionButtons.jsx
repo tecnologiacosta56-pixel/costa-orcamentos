@@ -69,47 +69,127 @@ export default function ActionButtons({
   }, [budgetId]);
 
   // =========================
-  // PDF
+  // PDF MULTIPÁGINA
   // =========================
   const generatePDF = async () => {
 
-    const input =
-      document.getElementById("budget-pdf");
+    try {
 
-    const canvas =
-      await html2canvas(input, {
-        scale: 2,
-      });
+      const input =
+        document.getElementById("budget-pdf");
 
-    const imgData =
-      canvas.toDataURL("image/png");
+      if (!input) {
 
-    const pdf =
-      new jsPDF(
-        "p",
-        "mm",
-        "a4"
+        alert(
+          "Elemento PDF não encontrado."
+        );
+
+        return;
+      }
+
+      // =========================
+      // CANVAS
+      // =========================
+      const canvas =
+        await html2canvas(input, {
+
+          scale: 2,
+
+          useCORS: true,
+
+          logging: false,
+
+          scrollY: -window.scrollY,
+        });
+
+      const imgData =
+        canvas.toDataURL("image/png");
+
+      // =========================
+      // PDF
+      // =========================
+      const pdf =
+        new jsPDF(
+          "p",
+          "mm",
+          "a4"
+        );
+
+      const pdfWidth =
+        pdf.internal.pageSize.getWidth();
+
+      const pdfHeight =
+        pdf.internal.pageSize.getHeight();
+
+      // =========================
+      // DIMENSÕES
+      // =========================
+      const imgWidth =
+        pdfWidth;
+
+      const imgHeight =
+        (canvas.height * imgWidth) /
+        canvas.width;
+
+      let heightLeft =
+        imgHeight;
+
+      let position = 0;
+
+      // =========================
+      // PRIMEIRA PÁGINA
+      // =========================
+      pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        position,
+        imgWidth,
+        imgHeight
       );
 
-    const pdfWidth =
-      pdf.internal.pageSize.getWidth();
+      heightLeft -= pdfHeight;
 
-    const pdfHeight =
-      (canvas.height * pdfWidth) /
-      canvas.width;
+      // =========================
+      // NOVAS PÁGINAS
+      // =========================
+      while (heightLeft > 0) {
 
-    pdf.addImage(
-      imgData,
-      "PNG",
-      0,
-      0,
-      pdfWidth,
-      pdfHeight
-    );
+        position =
+          heightLeft - imgHeight;
 
-    pdf.save(
-      "orcamento-costa-automation.pdf"
-    );
+        pdf.addPage();
+
+        pdf.addImage(
+          imgData,
+          "PNG",
+          0,
+          position,
+          imgWidth,
+          imgHeight
+        );
+
+        heightLeft -= pdfHeight;
+      }
+
+      // =========================
+      // SALVAR
+      // =========================
+      pdf.save(
+        "orcamento-costa-automation.pdf"
+      );
+
+    } catch (error) {
+
+      console.error(
+        "ERRO PDF:",
+        error
+      );
+
+      alert(
+        "Erro ao gerar PDF."
+      );
+    }
   };
 
   // =========================
