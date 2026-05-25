@@ -1,35 +1,44 @@
-import jsPDF from "jspdf"
-import html2canvas from "html2canvas"
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
+import { saveBudget } from "../../firebase/saveBudget";
 
 export default function ActionButtons({
   clientName,
   phone,
   address,
-  description,
   items,
   discount,
+  total,
 }) {
 
-  const total = items.reduce((acc, item) => {
-    return acc + item.quantity * item.price
-  }, 0)
-
-  const finalTotal = total - discount
-
+  // =========================
+  // PDF
+  // =========================
   const generatePDF = async () => {
 
-    const input = document.getElementById("budget-pdf")
+    const input =
+      document.getElementById("budget-pdf");
 
-    const canvas = await html2canvas(input)
+    const canvas = await html2canvas(input, {
+      scale: 2,
+    });
 
-    const imgData = canvas.toDataURL("image/png")
+    const imgData =
+      canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF("p", "mm", "a4")
+    const pdf = new jsPDF(
+      "p",
+      "mm",
+      "a4"
+    );
 
-    const pdfWidth = pdf.internal.pageSize.getWidth()
+    const pdfWidth =
+      pdf.internal.pageSize.getWidth();
 
     const pdfHeight =
-      (canvas.height * pdfWidth) / canvas.width
+      (canvas.height * pdfWidth) /
+      canvas.width;
 
     pdf.addImage(
       imgData,
@@ -38,40 +47,141 @@ export default function ActionButtons({
       0,
       pdfWidth,
       pdfHeight
-    )
+    );
 
-    pdf.save("orcamento-costa-automation.pdf")
-  }
+    pdf.save(
+      "orcamento-costa-automation.pdf"
+    );
+  };
 
-  const sendWhatsApp = () => {
+  // =========================
+  // WHATSAPP
+  // =========================
+  const handleWhatsApp = async () => {
 
-    const message = `
+    try {
+
+      // Validação básica
+      if (!clientName || !phone) {
+
+        alert(
+          "Preencha nome e telefone."
+        );
+
+        return;
+      }
+
+      // Dados do orçamento
+      const budgetData = {
+
+        clientName:
+          clientName || "",
+
+        phone:
+          phone || "",
+
+        address:
+          address || "",
+
+        items:
+          items || [],
+
+        discount:
+          Number(discount || 0),
+
+        total:
+          Number(total || 0),
+
+      };
+
+      console.log(
+        "SALVANDO:",
+        budgetData
+      );
+
+      // =========================
+      // SALVA FIRESTORE
+      // =========================
+      const budgetId =
+        await saveBudget(budgetData);
+
+      console.log(
+        "ID GERADO:",
+        budgetId
+      );
+
+      // =========================
+      // URL PÚBLICA
+      // =========================
+      const budgetUrl =
+
+        `https://costa-orcamentos.vercel.app/orcamento/${budgetId}`;
+
+      // =========================
+      // TELEFONE LIMPO
+      // =========================
+      const cleanPhone =
+        phone.replace(/\D/g, "");
+
+      // =========================
+      // MENSAGEM
+      // =========================
+      const message =
+        encodeURIComponent(`
+
 Olá ${clientName} 👋
 
-Segue seu orçamento da Costa Automation 🚀
+Seu orçamento da Costa Automation foi gerado com sucesso.
 
-📍 Endereço:
-${address}
+📄 Acesse seu orçamento:
 
-🛠️ Serviço:
-${description}
+${budgetUrl}
 
-💰 Valor total:
-R$ ${finalTotal.toFixed(2)}
+Obrigado pelo contato.
+Costa Automation
 
-Sistema inteligente de automação e tecnologia.
-`
+`);
 
-    const url =
-      `https://wa.me/?text=${encodeURIComponent(message)}`
+      // =========================
+      // WHATSAPP
+      // =========================
+      const whatsappUrl =
 
-    window.open(url, "_blank")
-  }
+        `https://wa.me/55${cleanPhone}?text=${message}`;
+
+      console.log(
+        "WHATSAPP:",
+        whatsappUrl
+      );
+
+      // Pequeno delay
+      setTimeout(() => {
+
+        window.open(
+          whatsappUrl,
+          "_blank"
+        );
+
+      }, 500);
+
+    } catch (error) {
+
+      console.error(
+        "ERRO COMPLETO:",
+        error
+      );
+
+      alert(
+        "Erro ao salvar orçamento."
+      );
+    }
+  };
 
   return (
 
     <div className="flex flex-wrap gap-4 mt-8">
 
+      {/* PDF */}
       <button
         onClick={generatePDF}
         className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-xl transition"
@@ -79,13 +189,15 @@ Sistema inteligente de automação e tecnologia.
         Gerar PDF
       </button>
 
+      {/* WhatsApp */}
       <button
-        onClick={sendWhatsApp}
+        onClick={handleWhatsApp}
         className="bg-green-500 hover:bg-green-400 text-white font-bold px-6 py-3 rounded-xl transition"
       >
         WhatsApp
       </button>
 
+      {/* Imprimir */}
       <button
         onClick={() => window.print()}
         className="bg-gray-700 hover:bg-gray-600 text-white font-bold px-6 py-3 rounded-xl transition"
@@ -94,5 +206,5 @@ Sistema inteligente de automação e tecnologia.
       </button>
 
     </div>
-  )
+  );
 }
