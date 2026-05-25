@@ -61,7 +61,9 @@ export default function ActionButtons({
 
     try {
 
-      // Validação básica
+      // =========================
+      // VALIDAÇÃO
+      // =========================
       if (!clientName || !phone) {
 
         alert(
@@ -71,7 +73,9 @@ export default function ActionButtons({
         return;
       }
 
-      // Dados do orçamento
+      // =========================
+      // DADOS DO ORÇAMENTO
+      // =========================
       const budgetData = {
 
         clientName:
@@ -114,7 +118,6 @@ export default function ActionButtons({
       // URL PÚBLICA
       // =========================
       const budgetUrl =
-
         `https://costa-orcamentos.vercel.app/orcamento/${budgetId}`;
 
       // =========================
@@ -124,11 +127,9 @@ export default function ActionButtons({
         phone.replace(/\D/g, "");
 
       // =========================
-      // MENSAGEM
+      // MENSAGEM LIMPA
       // =========================
-      const message =
-        encodeURIComponent(`
-
+      const message = `
 Olá ${clientName} 👋
 
 Seu orçamento da Costa Automation foi gerado com sucesso.
@@ -139,22 +140,22 @@ ${budgetUrl}
 
 Obrigado pelo contato.
 Costa Automation
-
-`);
+`;
 
       // =========================
-      // WHATSAPP
+      // URL WHATSAPP
       // =========================
       const whatsappUrl =
-
-        `https://wa.me/55${cleanPhone}?text=${message}`;
+        `https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`;
 
       console.log(
         "WHATSAPP:",
         whatsappUrl
       );
 
-      // Pequeno delay
+      // =========================
+      // ABRE WHATSAPP
+      // =========================
       setTimeout(() => {
 
         window.open(
