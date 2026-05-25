@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import {
   BrowserRouter,
   Routes,
@@ -7,25 +8,43 @@ import {
 } from "react-router-dom";
 
 import App from "./App";
+
 import OrcamentoView from "./pages/OrcamentoView";
+import HistoricoOrcamentos from "./pages/HistoricoOrcamentos";
 
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(
+
   <React.StrictMode>
+
     <BrowserRouter>
+
       <Routes>
 
         {/* Painel Admin */}
-        <Route path="/" element={<App />} />
+        <Route
+          path="/"
+          element={<App />}
+        />
 
-        {/* Página pública do cliente */}
+        {/* Histórico */}
+        <Route
+          path="/historico"
+          element={<HistoricoOrcamentos />}
+        />
+
+        {/* Página Pública */}
         <Route
           path="/orcamento/:id"
           element={<OrcamentoView />}
         />
 
       </Routes>
+
     </BrowserRouter>
+
   </React.StrictMode>
 );
