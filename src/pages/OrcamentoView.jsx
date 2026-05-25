@@ -8,6 +8,8 @@ import {
   getDoc,
 } from "firebase/firestore";
 
+import logo from "../assets/logo.png";
+
 export default function OrcamentoView() {
 
   const { id } = useParams();
@@ -21,9 +23,14 @@ export default function OrcamentoView() {
 
       try {
 
-        const docRef = doc(db, "orcamentos", id);
+        const docRef = doc(
+          db,
+          "orcamentos",
+          id
+        );
 
-        const docSnap = await getDoc(docRef);
+        const docSnap =
+          await getDoc(docRef);
 
         if (docSnap.exists()) {
 
@@ -50,139 +57,247 @@ export default function OrcamentoView() {
 
   }, [id]);
 
+  // =========================
+  // LOADING
+  // =========================
   if (loading) {
+
     return (
-      <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
-        Carregando orçamento...
+
+      <div className="min-h-screen bg-[#050816] text-white flex items-center justify-center">
+
+        <div className="text-center">
+
+          <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+
+          <p className="text-cyan-400 text-lg">
+            Carregando orçamento...
+          </p>
+
+        </div>
+
       </div>
     );
   }
 
+  // =========================
+  // NOT FOUND
+  // =========================
   if (!budget) {
+
     return (
-      <div className="min-h-screen bg-zinc-950 text-red-500 flex items-center justify-center">
-        Orçamento não encontrado.
+
+      <div className="min-h-screen bg-[#050816] text-white flex items-center justify-center p-6">
+
+        <div className="bg-[#0B1120] border border-red-500/20 rounded-3xl p-10 text-center max-w-md w-full">
+
+          <h1 className="text-3xl font-bold text-red-400 mb-4">
+            Orçamento não encontrado
+          </h1>
+
+          <p className="text-zinc-400">
+            Verifique o link enviado ou entre em contato com a Costa Automation.
+          </p>
+
+        </div>
+
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white p-8">
 
-      <div className="max-w-4xl mx-auto bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-cyan-500/20">
+    <div className="min-h-screen bg-[#050816] text-white p-4 md:p-10">
 
-        <div className="mb-10">
+      <div className="max-w-5xl mx-auto">
 
-          <h1 className="text-4xl font-bold text-cyan-400">
-            Costa Automation
-          </h1>
+        <div className="border border-cyan-500/20 bg-[#0B1120] rounded-3xl p-6 md:p-10 shadow-2xl">
 
-          <p className="text-zinc-400 mt-2">
-            Orçamento Profissional
-          </p>
+          {/* HEADER */}
+          <div className="flex items-center gap-4 mb-10 border-b border-cyan-500/20 pb-6">
 
-        </div>
+            <img
+              src={logo}
+              alt="Costa Automation"
+              className="w-16 h-16 md:w-20 md:h-20 object-contain"
+            />
 
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
+            <div>
 
-          <div>
-            <p className="text-zinc-500 text-sm">
-              Cliente
-            </p>
+              <h1 className="text-3xl md:text-4xl font-bold text-white">
 
-            <h2 className="text-2xl font-semibold">
-              {budget.clientName}
-            </h2>
+                Costa <span className="text-cyan-400">Automation</span>
+
+              </h1>
+
+              <p className="text-zinc-400 mt-1">
+                Sistema Inteligente de Orçamentos
+              </p>
+
+            </div>
+
           </div>
 
-          <div>
-            <p className="text-zinc-500 text-sm">
-              Telefone
+          {/* TITULO */}
+          <div className="mb-10">
+
+            <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 mb-2">
+              Orçamento Profissional
+            </h2>
+
+            <p className="text-zinc-400">
+              Documento gerado automaticamente pela plataforma Costa Automation.
             </p>
 
-            <h2 className="text-xl">
-              {budget.phone}
-            </h2>
           </div>
 
-          <div className="md:col-span-2">
-            <p className="text-zinc-500 text-sm">
-              Endereço
-            </p>
+          {/* CLIENTE */}
+          <div className="grid md:grid-cols-2 gap-8 mb-10">
 
-            <h2 className="text-xl">
-              {budget.address}
-            </h2>
+            <div>
+
+              <p className="text-zinc-500 text-sm mb-2">
+                Cliente
+              </p>
+
+              <h2 className="text-2xl font-semibold break-words">
+                {budget.clientName}
+              </h2>
+
+            </div>
+
+            <div>
+
+              <p className="text-zinc-500 text-sm mb-2">
+                Telefone
+              </p>
+
+              <h2 className="text-xl break-words">
+                {budget.phone}
+              </h2>
+
+            </div>
+
+            <div className="md:col-span-2">
+
+              <p className="text-zinc-500 text-sm mb-2">
+                Endereço
+              </p>
+
+              <h2 className="text-xl break-words">
+                {budget.address}
+              </h2>
+
+            </div>
+
           </div>
 
-        </div>
+          {/* TABELA */}
+          <div className="overflow-x-auto rounded-2xl border border-cyan-500/10">
 
-        <div className="overflow-x-auto">
+            <table className="w-full">
 
-          <table className="w-full">
+              <thead className="bg-cyan-500/5">
 
-            <thead>
-              <tr className="border-b border-zinc-700">
+                <tr className="border-b border-cyan-500/10">
 
-                <th className="text-left py-4">
-                  Item
-                </th>
+                  <th className="text-left py-4 px-4 text-cyan-400">
+                    Item
+                  </th>
 
-                <th className="text-right py-4">
-                  Valor
-                </th>
+                  <th className="text-center py-4 px-4 text-cyan-400">
+                    Qtd
+                  </th>
 
-              </tr>
-            </thead>
+                  <th className="text-right py-4 px-4 text-cyan-400">
+                    Valor
+                  </th>
 
-            <tbody>
-
-              {budget.items?.map((item, index) => (
-
-                <tr
-                  key={index}
-                  className="border-b border-zinc-800"
-                >
-
-                  <td className="py-4">
-                    {item.name}
-                  </td>
-
-                  <td className="py-4 text-right">
-                    R$ {Number(item.price).toFixed(2)}
-                  </td>
+                  <th className="text-right py-4 px-4 text-cyan-400">
+                    Subtotal
+                  </th>
 
                 </tr>
 
-              ))}
+              </thead>
 
-            </tbody>
+              <tbody>
 
-          </table>
+                {budget.items?.map((item, index) => {
 
-        </div>
+                  const quantity =
+                    Number(item.quantity || 0);
 
-        <div className="mt-10 border-t border-zinc-700 pt-6">
+                  const price =
+                    Number(item.price || 0);
 
-          <div className="flex justify-between mb-3">
+                  const subtotal =
+                    quantity * price;
 
-            <span className="text-zinc-400">
-              Desconto
-            </span>
+                  return (
 
-            <span>
-              R$ {Number(budget.discount || 0).toFixed(2)}
-            </span>
+                    <tr
+                      key={index}
+                      className="border-b border-zinc-800"
+                    >
+
+                      <td className="py-4 px-4">
+                        {item.name}
+                      </td>
+
+                      <td className="py-4 px-4 text-center">
+                        {quantity}
+                      </td>
+
+                      <td className="py-4 px-4 text-right">
+                        R$ {price.toFixed(2)}
+                      </td>
+
+                      <td className="py-4 px-4 text-right text-cyan-400 font-semibold">
+                        R$ {subtotal.toFixed(2)}
+                      </td>
+
+                    </tr>
+
+                  );
+                })}
+
+              </tbody>
+
+            </table>
 
           </div>
 
-          <div className="flex justify-between text-3xl font-bold text-cyan-400">
+          {/* TOTAL */}
+          <div className="mt-10 border-t border-cyan-500/10 pt-6">
 
-            <span>Total</span>
+            <div className="flex justify-between mb-4">
 
-            <span>
-              R$ {Number(budget.total).toFixed(2)}
-            </span>
+              <span className="text-zinc-400">
+                Desconto
+              </span>
+
+              <span className="text-white">
+                R$ {Number(
+                  budget.discount || 0
+                ).toFixed(2)}
+              </span>
+
+            </div>
+
+            <div className="flex justify-between items-center">
+
+              <span className="text-3xl font-bold text-cyan-400">
+                Total
+              </span>
+
+              <span className="text-3xl md:text-5xl font-bold text-cyan-400">
+                R$ {Number(
+                  budget.total || 0
+                ).toFixed(2)}
+              </span>
+
+            </div>
 
           </div>
 

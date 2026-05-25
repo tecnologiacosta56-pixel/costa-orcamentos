@@ -21,16 +21,38 @@ export default function App() {
   ])
 
   const [discount, setDiscount] = useState(0)
-const [clientName, setClientName] = useState("")
-const [phone, setPhone] = useState("")
-const [address, setAddress] = useState("")
-const [description, setDescription] = useState("")
+
+  const [clientName, setClientName] = useState("")
+  const [phone, setPhone] = useState("")
+  const [address, setAddress] = useState("")
+  const [description, setDescription] = useState("")
+
+  // =========================
+  // TOTAL
+  // =========================
+  const subtotal = items.reduce((acc, item) => {
+
+    const quantity =
+      Number(item.quantity || 0)
+
+    const price =
+      Number(item.price || 0)
+
+    return acc + (quantity * price)
+
+  }, 0)
+
+  const total =
+    subtotal - Number(discount || 0)
+
   return (
+
     <div className="min-h-screen bg-[#050816] text-white">
 
       <Header />
 
       <main className="p-10">
+
         <div className="max-w-7xl mx-auto">
 
           <div
@@ -47,6 +69,7 @@ const [description, setDescription] = useState("")
               />
 
               <div>
+
                 <h2 className="text-3xl font-bold text-white">
                   Costa <span className="text-cyan-400">Automation</span>
                 </h2>
@@ -54,6 +77,7 @@ const [description, setDescription] = useState("")
                 <p className="text-gray-400">
                   Sistema Inteligente de Orçamentos
                 </p>
+
               </div>
 
             </div>
@@ -67,18 +91,18 @@ const [description, setDescription] = useState("")
             </p>
 
             <BudgetForm
-  clientName={clientName}
-  setClientName={setClientName}
+              clientName={clientName}
+              setClientName={setClientName}
 
-  phone={phone}
-  setPhone={setPhone}
+              phone={phone}
+              setPhone={setPhone}
 
-  address={address}
-  setAddress={setAddress}
+              address={address}
+              setAddress={setAddress}
 
-  description={description}
-  setDescription={setDescription}
-/>
+              description={description}
+              setDescription={setDescription}
+            />
 
             <ServiceTable
               items={items}
@@ -92,17 +116,19 @@ const [description, setDescription] = useState("")
             />
 
             <ActionButtons
-  clientName={clientName}
-  phone={phone}
-  address={address}
-  description={description}
-  items={items}
-  discount={discount}
-/>
+              clientName={clientName}
+              phone={phone}
+              address={address}
+              description={description}
+              items={items}
+              discount={discount}
+              total={total}
+            />
 
           </div>
 
         </div>
+
       </main>
 
     </div>
