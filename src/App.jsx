@@ -95,6 +95,8 @@ export default function App() {
 
   const [generalConditions, setGeneralConditions] =
     useState("");
+    const [projectPresentationUrl, setProjectPresentationUrl] =
+  useState("");
 
   // =========================
   // RESET FORM
@@ -136,6 +138,7 @@ export default function App() {
     setIncludedServices("");
 
     setGeneralConditions("");
+    setProjectPresentationUrl("");
 
     setItems([
       {
@@ -241,6 +244,9 @@ export default function App() {
           setGeneralConditions(
             data.generalConditions || ""
           );
+          setProjectPresentationUrl(
+  data.projectPresentationUrl || ""
+);
 
           setItems(
             data.items || []
@@ -408,6 +414,8 @@ export default function App() {
 
               generalConditions={generalConditions}
               setGeneralConditions={setGeneralConditions}
+              projectPresentationUrl={projectPresentationUrl}
+setProjectPresentationUrl={setProjectPresentationUrl}
             />
 
             {/* TABLE */}
@@ -424,43 +432,45 @@ export default function App() {
             />
 
             {/* ACTIONS */}
-            <ActionButtons
-              budgetId={id}
+<ActionButtons
+  budgetId={id}
 
-              clientName={clientName}
+  clientName={clientName}
 
-              phone={phone}
+  phone={phone}
 
-              address={address}
+  address={address}
 
-              description={description}
+  description={description}
 
-              projectCategory={projectCategory}
+  projectCategory={projectCategory}
 
-              projectObjective={projectObjective}
+  projectObjective={projectObjective}
 
-              serviceScope={serviceScope}
+  serviceScope={serviceScope}
 
-              priorityLevel={priorityLevel}
+  priorityLevel={priorityLevel}
 
-              proposalValidity={proposalValidity}
+  proposalValidity={proposalValidity}
 
-              technicalResponsible={technicalResponsible}
+  technicalResponsible={technicalResponsible}
 
-              installationLocations={installationLocations}
+  installationLocations={installationLocations}
 
-              technicalNotes={technicalNotes}
+  technicalNotes={technicalNotes}
 
-              includedServices={includedServices}
+  includedServices={includedServices}
 
-              generalConditions={generalConditions}
+  generalConditions={generalConditions}
 
-              items={items}
+  projectPresentationUrl={projectPresentationUrl}
 
-              discount={discount}
+  items={items}
 
-              total={total}
-            />
+  discount={discount}
+
+  total={total}
+/>
 
           </div>
 

@@ -484,7 +484,34 @@ export default function OrcamentoView() {
             </div>
 
           )}
+{/* APRESENTAÇÃO DO PROJETO */}
+{budget.projectPresentationUrl && (
 
+  <div className="mb-10">
+
+    <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+      Apresentação do Projeto
+    </h3>
+
+    <div className="bg-[#050816] border border-cyan-500/10 rounded-2xl p-4">
+
+      <iframe
+        className="w-full h-[500px] rounded-xl"
+        src={`https://www.youtube.com/embed/${
+          budget.projectPresentationUrl
+            .split("youtu.be/")[1]
+            ?.split("?")[0]
+        }`}
+        title="Apresentação do Projeto"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+
+    </div>
+
+  </div>
+
+)}
           {/* DESCRIÇÃO */}
           {budget.description && (
 

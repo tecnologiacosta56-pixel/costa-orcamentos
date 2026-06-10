@@ -39,7 +39,10 @@ export default function BudgetForm({
   setIncludedServices,
 
   generalConditions,
-  setGeneralConditions,
+setGeneralConditions,
+
+projectPresentationUrl,
+setProjectPresentationUrl,
 }) {
 
   return (
@@ -376,7 +379,28 @@ export default function BudgetForm({
             />
 
           </div>
+{/* VISUALIZAÇÃO DO PROJETO */}
+<div>
 
+  <label className="block text-sm text-cyan-400 mb-2 font-semibold">
+    🎥 Link do Vídeo de Apresentação
+  </label>
+
+  <input
+    type="url"
+    value={projectPresentationUrl}
+    onChange={(e) =>
+      setProjectPresentationUrl(e.target.value)
+    }
+    placeholder="https://youtube.com/watch?v=..."
+    className="w-full bg-[#050816] border border-cyan-500/20 rounded-xl px-4 py-3 text-white outline-none focus:border-cyan-400"
+  />
+
+  <p className="text-xs text-gray-500 mt-2">
+    Opcional. Adicione um vídeo demonstrando a solução proposta para o cliente.
+  </p>
+
+</div>
           {/* DESCRIÇÃO */}
           <div>
 
