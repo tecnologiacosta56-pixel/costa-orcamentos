@@ -12,7 +12,7 @@ import App from "./App";
 
 import OrcamentoView from "./pages/OrcamentoView";
 import HistoricoOrcamentos from "./pages/HistoricoOrcamentos";
-
+import HistoricoLeads from "./pages/HistoricoLeads";
 import "./index.css";
 
 // =========================
@@ -60,8 +60,12 @@ ReactDOM.createRoot(
         <Route
           path="/historico"
           element={<ProtectedHistorico />}
+          
         />
-
+<Route
+  path="/leads"
+  element={<HistoricoLeads />}
+/>
         {/* VISUALIZAÇÃO PÚBLICA */}
         <Route
           path="/orcamento/:id"

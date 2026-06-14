@@ -70,7 +70,17 @@ export default function Header() {
           >
             Histórico
           </Link>
-
+{/* LEADS */}
+<Link
+  to="/leads"
+  className={`px-5 py-3 rounded-xl font-semibold transition-all ${
+    location.pathname === "/leads"
+      ? "bg-cyan-500 text-black"
+      : "bg-[#0B1120] border border-cyan-500/20 text-white hover:border-cyan-400"
+  }`}
+>
+  Leads
+</Link>
           {/* STATUS */}
           <div className="hidden md:flex items-center gap-3 ml-2">
 
