@@ -1,4 +1,4 @@
-import { saveLead } from "../firebase/saveLead";
+import { saveLead } from "../../firebase/saveLead";
 
 // =========================
 // NORMALIZA TELEFONE
