@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import {
   collection,
-  getDocs,
   query,
   orderBy,
   doc,
   updateDoc,
   addDoc,
+  onSnapshot,
 } from "firebase/firestore";
 
 import { db } from "../firebase/firebaseConfig";
@@ -24,7 +24,7 @@ import {
 } from "@dnd-kit/core";
 
 export default function HistoricoLeads() {
-
+console.log("🚀 Versão 14/06/2026 - TESTE");
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -38,19 +38,41 @@ export default function HistoricoLeads() {
     "Perdido",
   ];
 
+  // 🔥 REALTIME FIRESTORE (SAAS MODE)
   useEffect(() => {
-    async function loadLeads() {
-      const q = query(collection(db, "leads"), orderBy("createdAt", "desc"));
-      const snap = await getDocs(q);
 
-      setLeads(
-        snap.docs.map((d) => ({ id: d.id, ...d.data() }))
-      );
+    const q = query(
+      collection(db, "leads"),
+      orderBy("createdAt", "desc")
+    );
 
+    const unsubscribe = onSnapshot(q, (snap) => {const unsubscribe = onSnapshot(q, (snap) => {
+
+  console.log("🔥 Snapshot recebido!");
+  console.log("Quantidade de documentos:", snap.docs.length);
+
+  const data = snap.docs.map((d) => ({
+    id: d.id,
+    ...d.data(),
+  }));
+
+  setLeads(data);
+  setLoading(false);
+
+});
+
+      const data = snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+
+      setLeads(data);
       setLoading(false);
-    }
 
-    loadLeads();
+    });
+
+    return () => unsubscribe();
+
   }, []);
 
   async function updateLeadStatus(id, oldStatus, newStatus, lead) {
@@ -86,7 +108,6 @@ export default function HistoricoLeads() {
     })
   );
 
-  // ✅ CORRIGIDO DEFINITIVAMENTE
   function onDragEnd(event) {
 
     const { active, over } = event;
@@ -240,7 +261,6 @@ export default function HistoricoLeads() {
 
       </main>
 
-      {/* SIDEBAR GLOBAL */}
       <LeadSidebar
         lead={selectedLead}
         onClose={() => setSelectedLead(null)}
