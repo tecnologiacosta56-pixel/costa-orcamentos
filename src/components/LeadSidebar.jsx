@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { leadPropType } from "../types/propTypes";
 import { useState } from "react";
 import LeadTimeline from "./LeadTimeline";
 import LeadForm from "./forms/LeadForm";
@@ -158,3 +160,8 @@ export default function LeadSidebar({ lead, onClose }) {
     </div>
   );
 }
+
+LeadSidebar.propTypes = {
+  lead: leadPropType,
+  onClose: PropTypes.func.isRequired,
+};

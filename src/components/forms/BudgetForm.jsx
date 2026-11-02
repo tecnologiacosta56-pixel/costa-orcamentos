@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 export default function BudgetForm({
   clientName,
   setClientName,
@@ -427,3 +428,36 @@ setProjectPresentationUrl,
     </div>
   )
 }
+
+BudgetForm.propTypes = {
+  clientName: PropTypes.string.isRequired,
+  setClientName: PropTypes.func.isRequired,
+  phone: PropTypes.string.isRequired,
+  setPhone: PropTypes.func.isRequired,
+  address: PropTypes.string.isRequired,
+  setAddress: PropTypes.func.isRequired,
+  description: PropTypes.string.isRequired,
+  setDescription: PropTypes.func.isRequired,
+  projectCategory: PropTypes.string.isRequired,
+  setProjectCategory: PropTypes.func.isRequired,
+  projectObjective: PropTypes.string.isRequired,
+  setProjectObjective: PropTypes.func.isRequired,
+  serviceScope: PropTypes.string.isRequired,
+  setServiceScope: PropTypes.func.isRequired,
+  priorityLevel: PropTypes.string.isRequired,
+  setPriorityLevel: PropTypes.func.isRequired,
+  proposalValidity: PropTypes.string.isRequired,
+  setProposalValidity: PropTypes.func.isRequired,
+  technicalResponsible: PropTypes.string.isRequired,
+  setTechnicalResponsible: PropTypes.func.isRequired,
+  installationLocations: PropTypes.string.isRequired,
+  setInstallationLocations: PropTypes.func.isRequired,
+  technicalNotes: PropTypes.string.isRequired,
+  setTechnicalNotes: PropTypes.func.isRequired,
+  includedServices: PropTypes.string.isRequired,
+  setIncludedServices: PropTypes.func.isRequired,
+  generalConditions: PropTypes.string.isRequired,
+  setGeneralConditions: PropTypes.func.isRequired,
+  projectPresentationUrl: PropTypes.string.isRequired,
+  setProjectPresentationUrl: PropTypes.func.isRequired,
+};

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { leadPropType } from "../../types/propTypes";
 import { useEffect, useState } from "react";
 
 const STATUS_OPTIONS = [
@@ -197,3 +199,9 @@ export default function LeadForm({
     </form>
   );
 }
+
+LeadForm.propTypes = {
+  lead: leadPropType,
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+};

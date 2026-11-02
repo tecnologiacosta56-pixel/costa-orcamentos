@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { leadPropType } from "../types/propTypes";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -223,6 +225,9 @@ export default function HistoricoLeads() {
       </div>
     );
   }
+
+  Column.propTypes = { status: PropTypes.string.isRequired };
+  LeadCard.propTypes = { lead: leadPropType.isRequired };
 
   if (loading) {
     return (
