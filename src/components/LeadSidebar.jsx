@@ -22,10 +22,14 @@ export default function LeadSidebar({ lead, onClose }) {
 
   async function handleSave(formData) {
     try {
-      await updateLead(lead.id, formData);
+      const savedLeadId = await updateLead(lead.id, formData);
+      if (typeof savedLeadId !== "string" || !savedLeadId.trim()) {
+        throw new Error("O salvamento não retornou um ID de lead válido.");
+      }
       setIsEditing(false);
     } catch (error) {
       console.error("Erro ao atualizar lead:", error);
+      throw error;
     }
   }
 
