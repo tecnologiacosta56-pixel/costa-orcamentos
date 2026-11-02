@@ -4,8 +4,7 @@ import {
   query,
   orderBy,
   doc,
-  updateDoc,
-  addDoc,
+  writeBatch,
   onSnapshot,
 } from "firebase/firestore";
 
@@ -26,6 +25,7 @@ export default function HistoricoLeads() {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [loadError, setLoadError] = useState("");
   const [selectedLead, setSelectedLead] = useState(null);
 
   const statusColumns = [
@@ -43,12 +43,17 @@ export default function HistoricoLeads() {
     );
 
     const unsubscribe = onSnapshot(q, (snap) => {
+      setLoadError("");
       const data = snap.docs.map((d) => ({
         id: d.id,
         ...d.data(),
       }));
 
       setLeads(data);
+      setLoading(false);
+    }, (error) => {
+      console.error("Erro ao carregar leads:", error);
+      setLoadError("Não foi possível carregar os leads. Recarregue a página para tentar novamente.");
       setLoading(false);
     });
 
@@ -59,17 +64,21 @@ export default function HistoricoLeads() {
     try {
       const ref = doc(db, "leads", id);
 
-      await updateDoc(ref, { status: newStatus });
+      if (oldStatus === newStatus) return;
+      const batch = writeBatch(db);
+      batch.update(ref, { status: newStatus, updatedAt: new Date() });
 
-      await addDoc(collection(db, "lead_history"), {
+      batch.set(doc(collection(db, "lead_history")), {
         leadId: id,
         nomeLead: lead.nome,
         fromStatus: oldStatus,
         toStatus: newStatus,
         createdAt: new Date(),
       });
+      await batch.commit();
     } catch (err) {
       console.error(err);
+      alert("Não foi possível alterar o status. Nenhuma alteração deste movimento foi gravada.");
     }
   }
 
@@ -240,6 +249,8 @@ export default function HistoricoLeads() {
             placeholder="Buscar lead..."
           />
 
+          {loadError && <p role="alert" className="text-red-400 mb-4">{loadError}</p>}
+
           <DndContext sensors={sensors} onDragEnd={onDragEnd}>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {statusColumns.map((status) => (
@@ -251,7 +262,8 @@ export default function HistoricoLeads() {
       </main>
 
       <LeadSidebar
-        lead={selectedLead}
+        key={selectedLead?.id || "closed"}
+        lead={leads.find((lead) => lead.id === selectedLead?.id) || null}
         onClose={() => setSelectedLead(null)}
       />
     </div>

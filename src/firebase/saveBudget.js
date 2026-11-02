@@ -24,9 +24,7 @@ export async function saveBudget(
 
       ...budgetData,
 
-      status:
-        budgetData.status ||
-        "Pendente",
+      ...(!budgetId ? { status: budgetData.status || "Pendente" } : {}),
     };
 
     // =========================
@@ -85,5 +83,7 @@ export async function saveBudget(
       "Erro ao salvar orçamento:",
       error
     );
+
+    throw error;
   }
 }

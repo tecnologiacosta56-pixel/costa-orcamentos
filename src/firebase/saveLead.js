@@ -80,5 +80,7 @@ export async function saveLead(
       "Erro ao salvar lead:",
       error
     );
+
+    throw error;
   }
 }

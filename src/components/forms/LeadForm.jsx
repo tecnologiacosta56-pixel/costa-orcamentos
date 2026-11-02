@@ -13,6 +13,8 @@ export default function LeadForm({
   onSave,
   onCancel,
 }) {
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
   const [formData, setFormData] = useState({
     nome: "",
     telefone: "",
@@ -44,11 +46,22 @@ export default function LeadForm({
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-
-    if (onSave) {
-      onSave(formData);
+    if (saving || !onSave) return;
+    setSaveError("");
+    if (!formData.nome.trim() || !formData.telefone.replace(/\D/g, "")) {
+      setSaveError("Preencha nome e telefone.");
+      return;
+    }
+    setSaving(true);
+    try {
+      await onSave(formData);
+    } catch (error) {
+      console.error("Erro ao salvar lead:", error);
+      setSaveError("Não foi possível salvar o lead. Os dados foram mantidos; tente novamente.");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -158,18 +171,22 @@ export default function LeadForm({
         />
       </div>
 
+      {saveError && <p role="alert" className="text-red-400">{saveError}</p>}
+
       <div className="flex gap-3 pt-2">
 
         <button
           type="submit"
+          disabled={saving}
           className="flex-1 rounded-lg bg-cyan-600 hover:bg-cyan-500 py-2"
         >
-          Salvar
+          {saving ? "Salvando..." : "Salvar"}
         </button>
 
         <button
           type="button"
           onClick={onCancel}
+          disabled={saving}
           className="flex-1 rounded-lg border border-cyan-500/20"
         >
           Cancelar

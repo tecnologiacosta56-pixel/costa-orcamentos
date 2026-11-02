@@ -273,7 +273,7 @@ export default function ActionButtons({
 
     try {
 
-      if (!clientName || !phone) {
+      if (!String(clientName || "").trim() || !String(phone || "").replace(/\D/g, "")) {
 
         alert(
           "Preencha nome e telefone."
@@ -289,6 +289,10 @@ export default function ActionButtons({
           budgetData,
           currentBudgetId
         );
+
+      if (typeof savedBudgetId !== "string" || !savedBudgetId.trim()) {
+        throw new Error("O salvamento não retornou um ID de orçamento válido.");
+      }
 
       setCurrentBudgetId(
         savedBudgetId
