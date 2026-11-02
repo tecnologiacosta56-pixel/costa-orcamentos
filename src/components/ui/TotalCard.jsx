@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { budgetItemPropType } from "../../types/propTypes";
 export default function TotalCard({
   items,
   discount,
@@ -70,3 +72,9 @@ export default function TotalCard({
     </div>
   )
 }
+
+TotalCard.propTypes = {
+  items: PropTypes.arrayOf(budgetItemPropType).isRequired,
+  discount: PropTypes.number.isRequired,
+  setDiscount: PropTypes.func.isRequired,
+};

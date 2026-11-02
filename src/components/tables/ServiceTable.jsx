@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { budgetItemPropType } from "../../types/propTypes";
 export default function ServiceTable({ items, setItems }) {
 
   function formatCurrency(value) {
@@ -364,3 +366,8 @@ export default function ServiceTable({ items, setItems }) {
     </div>
   )
 }
+
+ServiceTable.propTypes = {
+  items: PropTypes.arrayOf(budgetItemPropType).isRequired,
+  setItems: PropTypes.func.isRequired,
+};

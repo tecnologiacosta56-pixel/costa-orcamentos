@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
+import { budgetItemPropType } from "../types/propTypes";
 // src/components/ui/ActionButtons.jsx
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { useState } from "react";
 
 export default function ActionButtons({
   clientName,
@@ -69,3 +70,12 @@ export default function ActionButtons({
     </div>
   );
 }
+
+ActionButtons.propTypes = {
+  clientName: PropTypes.string,
+  phone: PropTypes.string,
+  address: PropTypes.string,
+  items: PropTypes.arrayOf(budgetItemPropType),
+  discount: PropTypes.number,
+  total: PropTypes.number,
+};

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { budgetItemPropType } from "../../types/propTypes";
 import {
   useState,
   useEffect,
@@ -434,3 +436,25 @@ Costa Automation
     </div>
   );
 }
+
+ActionButtons.propTypes = {
+  budgetId: PropTypes.string,
+  clientName: PropTypes.string,
+  phone: PropTypes.string,
+  address: PropTypes.string,
+  description: PropTypes.string,
+  projectCategory: PropTypes.string,
+  projectObjective: PropTypes.string,
+  serviceScope: PropTypes.string,
+  installationLocations: PropTypes.string,
+  technicalNotes: PropTypes.string,
+  includedServices: PropTypes.string,
+  generalConditions: PropTypes.string,
+  projectPresentationUrl: PropTypes.string,
+  priorityLevel: PropTypes.string,
+  proposalValidity: PropTypes.string,
+  technicalResponsible: PropTypes.string,
+  items: PropTypes.arrayOf(budgetItemPropType),
+  discount: PropTypes.number,
+  total: PropTypes.number,
+};

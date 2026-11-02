@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -75,3 +76,7 @@ export default function LeadTimeline({ leadId }) {
     </div>
   );
 }
+
+LeadTimeline.propTypes = {
+  leadId: PropTypes.string.isRequired,
+};
